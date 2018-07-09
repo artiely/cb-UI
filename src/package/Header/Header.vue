@@ -1,48 +1,32 @@
 <template>
   <div :class="wrapCls">
-    <div :class="`${prefixCls}-left`" role="button" @click="click">
-      <span :class="`${prefixCls}-left-icon`" aria-hidden="true" v-if="hasIcon">
-        <slot name="icon"></slot>
-      </span>
-      <slot name="leftContent">{{ leftContent }}</slot>
+    <div :class="`${prefixCls}-left`" @click="click">
+      <slot name="left">
+        <span v-if="back" @click="toBack" >
+          <cb-icon :name="leftIcon?leftIcon:'icon-return'"></cb-icon>返回</span>
+        <span v-else>
+          <cb-icon :name="leftIcon"></cb-icon>
+        </span>
+      </slot>
     </div>
     <div :class="`${prefixCls}-title`">
       <slot></slot>
     </div>
     <div :class="`${prefixCls}-right`">
-      <slot name="rightContent"></slot>
+      <slot name="right">
+        <cb-icon v-if="rightIcon" :name="rightIcon"></cb-icon>
+      </slot>
     </div>
   </div>
 </template>
 <script>
 import { oneOf } from '../../utils'
-const prefixCls = 'cb-navbar'
+import Icon from '../Icon/Icon'
+const prefixCls = 'cb-header'
 export default {
-  name: 'NavBar',
-  data() {
-    return {
-      prefixCls: prefixCls,
-      hasIcon: false
-    }
-  },
-  mounted() {
-    this.hasIcon = this.$slots.icon !== undefined
-  },
-  methods: {
-    click(e) {
-      if (this.onLeftClick) {
-        this.onLeftClick(e)
-      }
-    }
-  },
-  computed: {
-    wrapCls() {
-      return {
-        [`${prefixCls}`]: true,
-        [`${prefixCls}-dark`]: this.mode === 'dark',
-        [`${prefixCls}-light`]: this.mode === 'light'
-      }
-    }
+  name: 'Header',
+  components: {
+    Icon
   },
   props: {
     mode: {
@@ -51,60 +35,136 @@ export default {
       },
       default: 'dark'
     },
-    leftContent: {
+    leftIcon: String,
+    rightIcon: String,
+    left: {
       type: String
     },
     onLeftClick: {
       type: Function
+    },
+    back: {
+      type: Boolean,
+      default: false
+    },
+    fixed: {
+      type: Boolean,
+      default: false
     }
+  },
+  data() {
+    return {
+      prefixCls: prefixCls,
+      hasIcon: false
+    }
+  },
+  computed: {
+    wrapCls() {
+      return {
+        [`${prefixCls}`]: true,
+        [`${prefixCls}--fixed`]: this.fixed,
+        [`${prefixCls}-dark`]: this.mode === 'dark',
+        [`${prefixCls}-light`]: this.mode === 'light'
+      }
+    }
+  },
+  methods: {
+    click(e) {
+      if (this.onLeftClick) {
+        this.onLeftClick(e)
+      }
+    },
+    toBack(e) {
+      if (this.onLeftClick) return
+      console.log('点击了返回')
+      if (this.to) {
+        if (this.replace) {
+          this.$router.replace({
+            name: this.to.name,
+            params: this.to.params,
+            query: this.to.query
+          })
+        } else {
+          this.$router.push({
+            name: this.to.name,
+            params: this.to.params,
+            query: this.to.query
+          })
+        }
+      } else {
+        console.log('this.$route', this.$route)
+        console.log('this.$router', this.$router)
+        this.$router.back()
+      }
+    }
+  },
+  mounted() {
+    this.hasIcon = this.$slots.icon !== undefined
   }
 }
 </script>
-<style>
-.cb-navbar {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
+<style lang="less">
+@import '../style/mixins';
+.cb-header {
   display: flex;
   align-items: center;
   height: 45px;
   background-color: #108ee9;
   color: #fff;
+  white-space: nowrap;
+  position: relative;
+  &--fixed{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 999;
+  }
 }
-.cb-navbar-left,
-.cb-navbar-title,
-.cb-navbar-right {
-  flex: 1;
+.cb-header-left,
+.cb-header-title,
+.cb-header-right {
+  flex: 0.5;
   height: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
+  line-height: 45px;
+  align-items: center;
+  white-space: nowrap;
+  .icon {
+    font-size: 24px;
+    color: #fff;
+  }
+}
+.cb-header-left {
+  padding-left: 10px;
+  text-align: left;
   display: flex;
   align-items: center;
+  height: 100%;
+  vertical-align: top;
 }
-.cb-navbar-left {
-  padding-left: 15px;
-  font-size: 16px;
-}
-.cb-navbar-left-icon {
+.cb-header-left-icon {
   margin-right: 5px;
   display: inherit;
 }
-.cb-navbar-title {
+.cb-header-title {
+  flex: 1;
   justify-content: center;
   font-size: 18px;
-  white-space: nowrap;
+  font-weight: 400;
+  text-align: center;
+  .ellipsis-1;
 }
-.cb-navbar-right {
+.cb-header-right {
   justify-content: flex-end;
   font-size: 16px;
-  margin-right: 15px;
+  margin-right: 10px;
+  text-align: right;
 }
-.cb-navbar-light {
+.cb-header-light {
   background-color: #fff;
   color: #108ee9;
 }
-.cb-navbar-light .cb-navbar-title {
+.cb-header-light .cb-header-title {
   color: #000;
 }
 </style>
