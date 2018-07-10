@@ -1,8 +1,8 @@
 <template>
   <div :class="wrapCls">
-    <div :class="`${prefixCls}-left`" @click="click">
+    <div :class="`${prefixCls}-left`" v-finger:tap="click">
       <slot name="left">
-        <span v-if="back" @click="toBack" >
+        <span v-if="back" v-finger:tap="toBack" >
           <cb-icon :name="leftIcon?leftIcon:'icon-return'"></cb-icon>返回</span>
         <span v-else>
           <cb-icon :name="leftIcon"></cb-icon>
