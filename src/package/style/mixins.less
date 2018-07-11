@@ -1,5 +1,100 @@
+@import './var';
 .ellipsis-1() {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.divider(@position:bottom,@color:@divider) {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    background-color: @color;
+    display: block;
+    & when(@position = left) {
+      left: 0;
+      top: 0;
+      bottom: auto;
+      right: auto;
+      height: 100%;
+      width: 1px;
+      transform-origin: 0 50%;
+      transform: scaleX(0.5);
+    }
+    & when( @position = right) {
+      left: auto;
+      top: 0;
+      bottom: auto;
+      right: 0;
+      height: 100%;
+      width: 1px;
+      transform-origin: 100% 50%;
+      transform: scaleX(0.5);
+    }
+    & when(@position = top) {
+      left: 0;
+      top: 0;
+      bottom: auto;
+      right: auto;
+      height: 1px;
+      width: 100%;
+      transform-origin: 0% 0%;
+      transform: scaleY(0.5);
+    }
+    & when(@position = bottom) {
+      left: 0;
+      top: atuo;
+      bottom: 0;
+      right: auto;
+      height: 1px;
+      width: 100%;
+      transform-origin: 0% 100%;
+      transform: scaleY(0.5);
+    }
+  }
+}
+
+.thin-border( @radius:0,@color:@divider) {
+  position: relative;
+  &:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-top: 1px solid @color;
+    border-left: 1px solid @color;
+    border-radius: @radius;
+    transform-origin: 0 0;
+    z-index: 0;
+    box-sizing: border-box;
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      height: 200%;
+      width: 200%;
+      transform: scale(0.5);
+      border-radius: (@radius * 2);
+    }
+  }
+  &:after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-bottom: 1px solid @color;
+    border-right: 1px solid @color;
+    border-radius: @radius;
+    transform-origin: 0 0;
+    z-index: 0;
+    box-sizing: border-box;
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      height: 200%;
+      width: 200%;
+      transform: scale(0.5);
+      border-radius: (@radius * 2);
+    }
+  }
 }

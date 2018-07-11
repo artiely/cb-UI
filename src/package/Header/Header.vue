@@ -3,7 +3,7 @@
     <div :class="`${prefixCls}-left`" v-finger:tap="click">
       <slot name="left">
         <span v-if="back" v-finger:tap="toBack" >
-          <cb-icon :name="leftIcon?leftIcon:'icon-return'"></cb-icon>返回</span>
+          <cb-icon :name="leftIcon?leftIcon:'icon-return'"></cb-icon></span>
         <span v-else>
           <cb-icon :name="leftIcon"></cb-icon>
         </span>
@@ -49,7 +49,7 @@ export default {
     },
     fixed: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   data() {
@@ -113,6 +113,7 @@ export default {
   color: #fff;
   white-space: nowrap;
   position: relative;
+  overflow: hidden;
   &--fixed{
     position: fixed;
     top:0;
@@ -157,7 +158,7 @@ export default {
 .cb-header-right {
   justify-content: flex-end;
   font-size: 16px;
-  margin-right: 10px;
+  padding-right: 10px;
   text-align: right;
 }
 .cb-header-light {

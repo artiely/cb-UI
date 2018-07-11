@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    正常标题默认带返回
-    <cb-header>123很厉害厉害厉害厉害厉害厉害了很厉了很厉了很厉</cb-header>
-    标题很长
-    <cb-header>123很厉害厉害厉害厉害厉害厉害了很厉了很厉了很厉</cb-header>
+    <cb-header >默认固定顶部</cb-header>
+    <div style="height:50px"></div>
+    正常标题默认
+    <cb-header :fixed="false">默认标题</cb-header>
     带返回
-    <cb-header back>123很厉害厉</cb-header>
+    <cb-header back :fixed="false">带返回</cb-header>
+    标题很长
+    <cb-header :fixed="false">123很厉害厉害厉害厉害厉害厉害了很厉了很厉了很厉</cb-header>
     自定义图标
-    <cb-header no-back left-icon="icon-remind" right-icon="icon-share_fill" :on-left-click="handleLeft">123很厉害厉</cb-header>
+    <cb-header :fixed="false" left-icon="icon-remind" right-icon="icon-share_fill" :on-left-click="handleLeft">123很厉害厉</cb-header>
     自定义
-    <cb-header no-back left-icon="icon-remind" right-icon="icon-share_fill">
+    <cb-header :fixed="false" left-icon="icon-remind" right-icon="icon-share_fill">
       <div slot="left" @click="handleLeft" style="vertical-align:top">
-        <cb-icon name="icon-return">返回 |</cb-icon>
+        <cb-icon name="icon-return"> |</cb-icon>
         <cb-icon name="icon-close" :size="20"></cb-icon>
       </div>嘿嘿
       <div slot="right">
@@ -20,38 +22,55 @@
       </div>
     </cb-header>
     图标 可自定义尺寸和颜色
+    <br>
     <cb-icon name="icon-search" :size="42"></cb-icon>
+    <br>
     <cb-icon name="icon-search" :size="32"></cb-icon>
+    <br>
     <cb-icon name="icon-search" :size="22"></cb-icon>
+    <br>
     <cb-icon name="icon-search" :size="22" color="red"></cb-icon>
-    默认头像
+    <br> 默认头像
+    <br>
     <cb-avatar></cb-avatar>
-    <br> Artiely
+    <br> Artiely<br>
     <cb-avatar name="Artiely"></cb-avatar>
-    <br> 谭杰
+    <br> 谭杰<br>
     <cb-avatar name="谭杰"></cb-avatar>
     <br> 自定义颜色
+    <br>
     <cb-avatar name="谭杰" color="red"></cb-avatar>
     <cb-avatar name="谭杰" background="#333" color="#fff"></cb-avatar>
     <br> 自定义尺寸
+    <br>
     <cb-avatar name="谭杰" background="#333" color="#fff" :size="100"></cb-avatar>
     <cb-avatar name="谭杰" :src="require('./assets/logo.png')" :size="50"></cb-avatar>
-    <br>
-    <cb-box alignContent="center" style="background:#eee;height:110px;width:110px;">
-      <cb-box style="background:red;display:flex;height:20px"></cb-box>
-      <cb-box style="background:red;width:110px;height:20px"></cb-box>
-    </cb-box>
-    <div class="main">
-      <div style="background-color:coral;"></div>
-      <div style="background-color:pink;"></div>
-    </div>
-    <br>
-    <cb-grid :items="[1,2,3,4,5,6]">
-      <template slot-scope="scope" >
-        {{scope}}
+    <br> 网格组件(默认列3)
+    <cb-grid :items="[1,2,3,4,5]">
+      <template slot-scope="scope">
+        <div style="width:100%;height:100px;text-align:center;line-height:100px;">{{scope.item}}</div>
+      </template>
+    </cb-grid>
+    自定义列数（4）
+    <cb-grid :items="[1,2,3,4,5]" :col="4">
+      <template slot-scope="scope">
+        <div style="width:100%;height:100px;text-align:center;line-height:100px;">{{scope.item}}</div>
+      </template>
+    </cb-grid>
+    无边框
+    <cb-grid :items="[1,2,3,4,5]" :col="4" :divider="false">
+      <template slot-scope="scope">
+        <div style="width:100%;height:100px;text-align:center;line-height:100px;">{{scope.item}}</div>
       </template>
     </cb-grid>
     <br>
+    dividers
+    <div class="test test1"></div>
+    <div class="test test2"></div>
+    <div class="test test3"></div>
+    <div class="test test4"></div>
+    <div class="test"></div>
+    <div class="test test5"></div>
   </div>
 </template>
 
@@ -67,6 +86,27 @@ export default {
 </script>
 
 <style lang="less">
+@import './package/style/mixins';
+.test {
+  height: 40px;
+  width: 200px;
+  background: yellow;
+  &.test1{
+    .divider(right);
+  }
+  &.test2{
+    .divider(left);
+  }
+  &.test3{
+    .divider(top);
+  }
+  &.test4{
+    .divider(bottom,red);
+  }
+  &.test5{
+    .thin-border(2px)
+  }
+}
 .main {
   // display: flex;
   // flex-flow: row wrap;
@@ -75,14 +115,14 @@ export default {
   // height: 110px;
   // width: 110px;
   width: 70px;
-    height: 300px;
-    border: 1px solid #c3c3c3;
-    //display: -webkit-flex;
-    display: flex;
-    //-webkit-flex-wrap: wrap;
-    flex-flow:  row wrap;
-    //-webkit-align-content: center;
-    align-content: center;
+  height: 300px;
+  border: 1px solid #c3c3c3;
+  //display: -webkit-flex;
+  display: flex;
+  //-webkit-flex-wrap: wrap;
+  flex-flow: row wrap;
+  //-webkit-align-content: center;
+  align-content: center;
   > div {
     height: 100px;
     width: 100px;
