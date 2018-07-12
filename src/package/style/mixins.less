@@ -4,7 +4,18 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
+// TIP: 扩大点击范围 (使用时注意伪类冲突)
+.tap-area {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+  }
+}
 .divider(@position:bottom,@color:@divider) {
   position: relative;
   &::after {
@@ -86,6 +97,48 @@
     width: 100%;
     border-bottom: 1px solid @color;
     border-right: 1px solid @color;
+    border-radius: @radius;
+    transform-origin: 0 0;
+    z-index: 0;
+    box-sizing: border-box;
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      height: 200%;
+      width: 200%;
+      transform: scale(0.5);
+      border-radius: (@radius * 2);
+    }
+  }
+}
+
+.thin-border-tb( @radius:0,@color:@divider) {
+  position: relative;
+  &:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-top: 1px solid @color;
+    border-radius: @radius;
+    transform-origin: 0 0;
+    z-index: 0;
+    box-sizing: border-box;
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      height: 200%;
+      width: 200%;
+      transform: scale(0.5);
+      border-radius: (@radius * 2);
+    }
+  }
+  &:after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-bottom: 1px solid @color;
     border-radius: @radius;
     transform-origin: 0 0;
     z-index: 0;

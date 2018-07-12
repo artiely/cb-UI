@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <cb-header >默认固定顶部</cb-header>
+    <cb-header>默认固定顶部</cb-header>
     <div style="height:50px"></div>
     正常标题默认
     <cb-header :fixed="false">默认标题</cb-header>
@@ -8,6 +8,10 @@
     <cb-header back :fixed="false">带返回</cb-header>
     标题很长
     <cb-header :fixed="false">123很厉害厉害厉害厉害厉害厉害了很厉了很厉了很厉</cb-header>
+    白色主题
+    <cb-header mode="light" :fixed="false">123很厉害厉害厉害厉害厉害厉害了很厉了很厉了很厉</cb-header>
+    白色主题带返回
+    <cb-header mode="light" :fixed="false" back>123很厉害厉害厉害厉害厉害厉害了很厉了很厉了很厉</cb-header>
     自定义图标
     <cb-header :fixed="false" left-icon="icon-remind" right-icon="icon-share_fill" :on-left-click="handleLeft">123很厉害厉</cb-header>
     自定义
@@ -63,13 +67,41 @@
         <div style="width:100%;height:100px;text-align:center;line-height:100px;">{{scope.item}}</div>
       </template>
     </cb-grid>
-    <br>
-    dividers
+    <br> dividers
     <div class="test test1"></div>
     <div class="test test2"></div>
     <div class="test test3"></div>
     <div class="test test4"></div>
     <div class="test"></div>
+    <div class="test test5"></div>
+    group有边框
+    <cb-cell-group>
+      <cb-cell left-icon="icon-questions"></cb-cell>
+      <cb-cell title="我是川普"></cb-cell>
+    </cb-cell-group>
+    <div class="test test5"></div>
+    group无边框
+    <cb-cell-group :border="false">
+      <cb-cell left-icon="icon-questions" title="你好"></cb-cell>
+      <cb-cell title="我是川普"></cb-cell>
+      <cb-cell title="我是川普" input v-model="valuex"></cb-cell>
+      <cb-cell title="长度3" input v-model="valuex" maxlength="3"></cb-cell>
+      {{valuex}}
+      <cb-cell title="川普" input v-model="valuex"></cb-cell>
+      <cb-cell title="请输入数字" input v-model="valuex" type="number"></cb-cell>
+      <cb-cell title="请输入手机号" input v-model="valuex" type="tel"></cb-cell>
+      <cb-cell title="请输入金额" input v-model="valuex" currency type="number"></cb-cell>
+      <cb-cell title="我是川普我是川普" input required v-model="valuex" clear></cb-cell>
+      <cb-cell title="我是川普我是川普" text="我是文本内容"></cb-cell>
+      <cb-cell title="我是川普我是川普" text="我是文本内容我是文本内容我是文本内容本内容"></cb-cell>
+      <cb-cell title="我是川普我是川普" text="我是文本内容我是文本内容我是文本内容本内容" wrap></cb-cell>
+      <cb-cell title="请选择" text="我是文本内容我是文本内容我是文本内容本内容" link></cb-cell>
+      <cb-cell >
+        <div>
+          <cb-icon name="icon-coupons"></cb-icon>
+        </div>
+      </cb-cell>
+    </cb-cell-group>
     <div class="test test5"></div>
   </div>
 </template>
@@ -77,6 +109,11 @@
 <script>
 export default {
   name: 'App',
+  data() {
+    return {
+      valuex: ''
+    }
+  },
   methods: {
     handleLeft() {
       console.log('点击了自定义事件')
@@ -87,24 +124,32 @@ export default {
 
 <style lang="less">
 @import './package/style/mixins';
+*{
+  font-family: "PingFang SC", "Hiragino Sans GB",-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+             "Helvetica Neue", Helvetica, "Microsoft YaHei",
+             SimSun, sans-serif;
+}
+#app {
+  background: #eee;
+}
 .test {
   height: 40px;
   width: 200px;
   background: yellow;
-  &.test1{
+  &.test1 {
     .divider(right);
   }
-  &.test2{
+  &.test2 {
     .divider(left);
   }
-  &.test3{
+  &.test3 {
     .divider(top);
   }
-  &.test4{
+  &.test4 {
     .divider(bottom,red);
   }
-  &.test5{
-    .thin-border(2px)
+  &.test5 {
+    .thin-border(2px);
   }
 }
 .main {

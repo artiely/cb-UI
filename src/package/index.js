@@ -3,6 +3,10 @@ import Icon from './Icon'
 import Avatar from './Avatar'
 import Box from './Box'
 import Grid from './Grid'
+import {
+  CellGroup,
+  Cell
+} from './Cell'
 
 import './style/index.less'
 export default {
@@ -11,6 +15,10 @@ export default {
   Avatar,
   Grid,
   Box,
+  CellGroup,
+  Cell,
+  'cb-cell-group': CellGroup,
+  'cb-cell': Cell,
   'cb-grid': Grid,
   'cb-box': Box,
   'cb-avatar': Avatar,

@@ -99,7 +99,7 @@ export default {
     }
   },
   mounted() {
-    this.hasIcon = this.$slots.icon !== undefined
+    // this.hasIcon = this.$slots.icon !== undefined
   }
 }
 </script>
@@ -164,6 +164,10 @@ export default {
 .cb-header-light {
   background-color: #fff;
   color: #108ee9;
+  .icon {
+    font-size: 24px;
+    color: #000!important;
+  }
 }
 .cb-header-light .cb-header-title {
   color: #000;
