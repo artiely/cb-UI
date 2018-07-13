@@ -1,38 +1,37 @@
 <template>
-  <div class="cb-cell">
-    
-      <div class="cb-cell-left--icon" v-if="hasIcon||leftIcon">
-        <slot name="left-icon">
-          <cb-icon :name="leftIcon?'icon-questions':''">
-          </cb-icon>
-        </slot>
-      </div>
-      <!-- 不换行 -->
-      <div class="cb-cell-divider" :class="{'cb-cell-no-height':wrap}">
-        <slot>
+  <div :class="`${prefixCls}`">
+    <div :class="`${prefixCls}-left--icon`" v-if="hasIcon||leftIcon">
+      <slot name="left-icon">
+        <cb-icon :name="leftIcon?'icon-questions':''">
+        </cb-icon>
+      </slot>
+    </div>
+    <div :class="{[`${prefixCls}-no-height`]:wrap,[`${prefixCls}-divider`]:true}">
+      <slot>
         <slot name="title">
-          <div class="cb-cell-title">{{title}}
-            <span v-if="required" class="cb-cell-required"> *</span>
+          <div :class="`${prefixCls}-title`">{{title}}
+            <span v-if="required" :class="`${prefixCls}-required`"> *</span>
           </div>
         </slot>
-        <div class="cb-cell-input-box" v-if="input">
-          <input :type="type" class="cb-cell-input" v-bind="$attrs" :value="value" @input="handleInput" placeholder="请输入">
+        <div :class="`${prefixCls}-input-box`" v-if="input">
+          <input :type="type" :class="`${prefixCls}-input`" v-bind="$attrs" :value="value" @input="handleInput" placeholder="请输入">
         </div>
-        <div class="cb-cell-text "  v-else>
-          <div class="cb-cell-text-align" :class="{'cb-cell-no-ellipsis':wrap,'cb-cell-ellipsis':!wrap}">
+        <div :class="`${prefixCls}-text` " v-else>
+          <div :class="wrapCls">
             {{text}}
           </div>
         </div>
-        <div class="cb-cell-link" v-if="link||clear">
+        <div :class="`${prefixCls}-link`" v-if="link||clear">
           <cb-icon name="icon-enter" v-if="link"></cb-icon>
           <cb-icon name="icon-delete_fill" v-if="clear" class="tap-area" color="#ddd" @click.native="clearInput"></cb-icon>
         </div>
-        </slot>
-      </div>
+      </slot>
+    </div>
   </div>
 </template>
 
 <script>
+const prefixCls = 'cb-cell'
 export default {
   name: 'Cell',
   props: {
@@ -71,7 +70,18 @@ export default {
   },
   data() {
     return {
+      prefixCls: prefixCls,
       hasIcon: false
+    }
+  },
+  computed: {
+    wrapCls() {
+      // 是否换行
+      return {
+        [`${prefixCls}-no-ellipsis`]: this.wrap,
+        [`${prefixCls}-ellipsis`]: !this.wrap,
+        [`${prefixCls}-text-align`]: true
+      }
     }
   },
   methods: {
@@ -80,9 +90,16 @@ export default {
       if (this.currency) {
         e.target.value = e.target.value.replace(/[^\d.]/g, '') // 清除“数字”和“.”以外的字符
         e.target.value = e.target.value.replace(/\.{2,}/g, '.') // 只保留第一个. 清除多余的
-        e.target.value = e.target.value.replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')
-        e.target.value = e.target.value.replace(/^(-)*(\d+)\.(\d\d).*$/, '$1$2.$3') // 只能输入两个小数
-        if (e.target.value.indexOf('.') < 0 && e.target.value !== '') { // 以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+        e.target.value = e.target.value
+          .replace('.', '$#$')
+          .replace(/\./g, '')
+          .replace('$#$', '.')
+        e.target.value = e.target.value.replace(
+          /^(-)*(\d+)\.(\d\d).*$/,
+          '$1$2.$3'
+        ) // 只能输入两个小数
+        if (e.target.value.indexOf('.') < 0 && e.target.value !== '') {
+          // 以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
           e.target.value = parseFloat(e.target.value)
         }
         // e.target.value = e.target.value.replace(/[^\d]/g, '')
@@ -111,8 +128,11 @@ export default {
   display: flex;
   position: relative;
   margin-bottom: -1px;
-  .cb-cell-required{
+  .cb-cell-required {
     color: red;
+    position: absolute;
+    top: 0;
+    right: -7px;
   }
   .cb-cell-divider {
     flex: 1;
@@ -130,7 +150,7 @@ export default {
   .cb-cell-link {
     width: 20px;
     text-align: right;
-    .icon{
+    .icon {
       font-size: 24px;
     }
   }
@@ -161,6 +181,7 @@ export default {
     font-size: 16px;
     color: #666;
     min-width: 66px;
+    position: relative;
   }
   .cb-cell-input-box {
     flex: 1;

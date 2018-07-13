@@ -103,6 +103,9 @@
       </cb-cell>
     </cb-cell-group>
     <div class="test test5"></div>
+    <cb-badge>123</cb-badge>
+    <cb-badge small>123</cb-badge>
+    <cb-badge large>123</cb-badge>
   </div>
 </template>
 

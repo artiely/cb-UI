@@ -54,8 +54,8 @@ export default {
   },
   data() {
     return {
-      prefixCls: prefixCls,
-      hasIcon: false
+      prefixCls: prefixCls
+      // hasIcon: false
     }
   },
   computed: {
@@ -76,7 +76,6 @@ export default {
     },
     toBack(e) {
       if (this.onLeftClick) return
-      console.log('点击了返回')
       if (this.to) {
         if (this.replace) {
           this.$router.replace({

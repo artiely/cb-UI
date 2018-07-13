@@ -5,9 +5,9 @@
       width:width,
       display:'inline-block',
     }">
-      <div :class="{'cb-grid-border-right':(index+1)%col!==0 && divider}">
-        <div :class="{'cb-grid-border-bottom':divider}">
-          <div :class="{'cb-grid-border-top':index<col && divider }">
+      <div :class="{[`${prefixCls}-border-right`]:(index+1)%col!==0 && divider}">
+        <div :class="{[`${prefixCls}-border-bottom`]:divider}">
+          <div :class="{[`${prefixCls}-border-top`]:index<col && divider }">
             <slot :item="item"></slot>
           </div>
         </div>
@@ -16,6 +16,7 @@
   </div>
 </template>
 <script>
+const prefixCls = 'cb-grid'
 export default {
   name: 'Grid',
   props: {
@@ -27,6 +28,11 @@ export default {
     divider: {
       type: Boolean,
       default: true
+    }
+  },
+  data() {
+    return {
+      prefixCls: prefixCls
     }
   },
   computed: {
