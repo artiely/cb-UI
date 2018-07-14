@@ -48,7 +48,14 @@
     <br> 自定义尺寸
     <br>
     <cb-avatar name="谭杰" background="#333" color="#fff" :size="100"></cb-avatar>
+    <br>
+    图片
+    <br>
     <cb-avatar name="谭杰" :src="require('./assets/logo.png')" :size="50"></cb-avatar>
+    <br>
+    扁平
+    <br>
+    <cb-avatar name="谭杰" :src="require('./assets/logo.png')" :size="50" flat></cb-avatar>
     <br>
     设置 verified
     <br>

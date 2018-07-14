@@ -1,6 +1,6 @@
 # Cell 单元格
 
-单个连续模块垂直排列，显示当前的内容、状态和可进行的操作。包含了 cell,list,field 的功能
+单个连续模块垂直排列，显示当前的内容、状态和可进行的操作。包含了 cell,list listItem,field 等功能
 
 ### 规则
 
@@ -27,15 +27,16 @@
 | leftIcon | 左边图标 icon 的 name 值                                                                           | String / Slot `name="left-icon"`   | -      |
 | link     | 箭头方向(右,上,下), 可选`horizontal`,`up`,`down`,`empty`，如果是 empty 则存在对应的 dom,但是不显示 | String                             | false  |
 | wrap     | 是否换行，默认情况下，文字超长会被隐藏                                                             | Boolean                            | false  |
-| required | 是否必填（一般用于有 input 属性时）                                                                | Boolean                            | false  |
+| required | 是否必填（一般用于有 input 属性时 只是展示符号`*`）                                                | Boolean                            | false  |
 
 ### input 属性才有效的 继承所有 input 原生属性
 
-| 属性     | 说明                                       | 类型          | 默认值 |
-| -------- | ------------------------------------------ | ------------- | ------ |
-| v-model  | 输入的值                                   | String/Number | -      |
-| currency | 是否只能输入金额 `88.88`格式 `type=number` | Number        | -      |
-| clear    | 是否清空输入                               | Boolean       | false  |
+| 属性        | 说明                                       | 类型          | 默认值 |
+| ----------- | ------------------------------------------ | ------------- | ------ |
+| v-model     | 输入的值                                   | String/Number | -      |
+| currency    | 是否只能输入金额 `88.88`格式 `type=number` | Number        | -      |
+| clear       | 是否清空输入                               | Boolean       | false  |
+| placeholder | 输入提示                                   | Boolean       | 请输入 |
 
 ## Cell
 

@@ -23,7 +23,7 @@
 | onLeftClick | 导航左边点击回调                             | Function                          | -        |
 | leftIcon    | 导航左边的图标                               | String `name=""`                  | -        |
 | rightIcon   | 导航右边的图标                               | String `name=""`                  | -        |
-| back        | 是否展示返回按钮                             | Boolean                           | false    |
+| back        | 是否展示返回按钮 (默认点击会回到上一页)      | Boolean                           | false    |
 | fixed       | 是否固定到顶部                               | Boolean                           | false    |
 | to          | 返回到指定的路由，在 back 的情况下           | Router `{name:'Index',params:{}}` | false    |
 | replace     | replace 配合 to 使用将路由 push 改为 replace | Boolean                           | false    |

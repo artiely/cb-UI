@@ -1,29 +1,29 @@
 <template>
   <div :class="`${prefixCls}`">
-    <div :class="`${prefixCls}-left--icon`" v-if="hasIcon||leftIcon">
+    <div :class="`${prefixCls}--left-icon`" v-if="hasIcon||leftIcon">
       <slot name="left-icon">
         <cb-icon :name="leftIcon?'icon-questions':''">
         </cb-icon>
       </slot>
     </div>
-    <div :class="{[`${prefixCls}-no-height`]:wrap,[`${prefixCls}-divider`]:true}">
+    <div :class="{[`${prefixCls}--no-height`]:wrap,[`${prefixCls}--divider`]:true}">
       <slot>
         <slot name="title">
-          <div :class="`${prefixCls}-title`">{{title}}
-            <span v-if="required" :class="`${prefixCls}-required`"> *</span>
+          <div :class="`${prefixCls}--title`">{{title}}
+            <span v-if="required" :class="`${prefixCls}--required`"> *</span>
           </div>
         </slot>
-        <div :class="`${prefixCls}-input-box`" v-if="this.value!==undefined&&this.input">
-          <input :type="type" :class="`${prefixCls}-input`" v-bind="$attrs" :placeholder="placeholder" :value="value" @input="handleInput" />
+        <div :class="`${prefixCls}--input-box`" v-if="this.value!==undefined&&this.input">
+          <input :type="type" :class="`${prefixCls}--input`" v-bind="$attrs" :placeholder="placeholder" :value="value" @input="handleInput" />
         </div>
-          <div :class="`${prefixCls}-text` " v-else>
-            <slot name="text" >
+        <div :class="`${prefixCls}--text` " v-else>
+          <slot name="text">
             <div :class="wrapCls">
               {{finalText}}
             </div>
-            </slot>
-          </div>
-        <div :class="`${prefixCls}-link`" v-if="link||clear">
+          </slot>
+        </div>
+        <div :class="`${prefixCls}--link`" v-if="link||clear">
           <cb-icon name="icon-enter" v-if="link"></cb-icon>
           <cb-icon name="icon-delete_fill" v-if="clear" class="tap-area" color="#ddd" @click.native="clearInput"></cb-icon>
         </div>
@@ -85,9 +85,9 @@ export default {
     wrapCls() {
       // 是否换行
       return {
-        [`${prefixCls}-no-ellipsis`]: this.wrap,
-        [`${prefixCls}-ellipsis`]: !this.wrap,
-        [`${prefixCls}-text-align`]: this.wrap
+        [`${prefixCls}--no-ellipsis`]: this.wrap,
+        [`${prefixCls}--ellipsis`]: !this.wrap,
+        [`${prefixCls}--text-align`]: this.wrap
       }
     },
     finalText() {
@@ -134,8 +134,6 @@ export default {
   },
   mounted() {
     this.hasIcon = this.$slots.leftIcon !== undefined
-    console.log('value', this.value)
-    // console.log('input', this.input)
   }
 }
 </script>
@@ -146,13 +144,13 @@ export default {
   padding-left: 15px;
   display: flex;
   position: relative;
-  .cb-cell-required {
+  &--required {
     color: red;
     position: absolute;
     top: 0;
     right: -7px;
   }
-  .cb-cell-divider {
+  &--divider {
     flex: 1;
     display: flex;
     height: 50px;
@@ -160,73 +158,80 @@ export default {
     .divider(bottom);
     font-size: 16px;
     padding-right: 15px;
-    &.cb-cell-no-height {
-      height: auto;
-      line-height: 50px;
-    }
   }
-  .cb-cell-link {
+  &--no-height {
+    height: auto;
+    line-height: 50px;
+  }
+  &--link {
     width: 20px;
     text-align: right;
     .icon {
       font-size: 24px;
     }
   }
-  .cb-cell-text {
+  &--text {
     font-size: 16px;
     padding-left: 15px;
     color: #333;
     flex: 1;
     width: 100px;
     text-align: right;
-
-    .cb-cell-ellipsis {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      line-height: 50px;
-      text-align: right;
-    }
-    .cb-cell-no-ellipsis {
-      padding-top: 15px;
-      padding-bottom: 10px;
-      line-height: 1.3;
-    }
-    .cb-cell-text-align {
-      text-align: left;
-    }
   }
-  .cb-cell-title {
+  &--ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 50px;
+    text-align: right;
+  }
+  &--no-ellipsis {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    line-height: 1.3;
+  }
+  &--text-align {
+    text-align: left;
+  }
+  &--title {
     font-size: 16px;
     color: #666;
     min-width: 66px;
     position: relative;
   }
-  .cb-cell-input-box {
+  &--input-box {
     flex: 1;
-    .cb-cell-input {
-      width: 100%;
-      line-height: normal;
-      padding-left: 20px;
+  }
+  &--input {
+    width: 100%;
+    line-height: normal;
+    padding-left: 20px;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    font-size: 16px;
+    background: #ffffff;
+    box-shadow: none;
+    -webkit-appearance: none; /* 除输入框和按钮的原生外观，在iOS上加上这个属性才能给按钮和输入框自定义样式 */
+    vertical-align: middle;
+    line-height: normal; //光标问题
+    resize: none;
+    -webkit-tap-highlight-color: transparent;
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
+    &:focus {
+      /* 防止在获得焦点时, 出现边框 */
       outline: none;
-      border: none;
-      box-sizing: border-box;
-      font-size: 16px;
-      background: #ffffff;
-      box-shadow: none;
-      -webkit-appearance: none; /* 除输入框和按钮的原生外观，在iOS上加上这个属性才能给按钮和输入框自定义样式 */
-      vertical-align: middle;
-      line-height: normal; //光标问题
-      resize: none;
       -webkit-tap-highlight-color: transparent;
-      &:focus {
-        /* 防止在获得焦点时, 出现边框 */
-        outline: none;
-        -webkit-tap-highlight-color: transparent;
-      }
+    }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none !important;
+      margin: 0;
     }
   }
-  .cb-cell-left--icon {
+  &--left-icon {
     display: inline-block;
     width: 30px;
     height: 50px;

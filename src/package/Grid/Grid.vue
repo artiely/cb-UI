@@ -1,13 +1,10 @@
 
 <template>
   <div>
-    <div v-for="(item,index) in items" :key="index" :style="{
-      width:width,
-      display:'inline-block',
-    }">
-      <div :class="{[`${prefixCls}-border-right`]:(index+1)%col!==0 && divider}">
-        <div :class="{[`${prefixCls}-border-bottom`]:divider}">
-          <div :class="{[`${prefixCls}-border-top`]:index<col && divider }">
+    <div v-for="(item,index) in items" :key="index" :style="itemStyle">
+      <div :class="{[`${prefixCls}--border-right`]:(index+1)%col!==0 && divider}">
+        <div :class="{[`${prefixCls}--border-bottom`]:divider}">
+          <div :class="{[`${prefixCls}--border-top`]:index<col && divider }">
             <slot :item="item"></slot>
           </div>
         </div>
@@ -36,27 +33,26 @@ export default {
     }
   },
   computed: {
-    width() {
-      return `${100 / this.col}%`
-    },
-    border() {
-      return `1px sloid`
-    },
-    row() {
-      return Math.floor(this.items.length / this.col)
+    itemStyle() {
+      return {
+        width: `${100 / this.col}%`,
+        display: 'inline-block'
+      }
     }
   }
 }
 </script>
 <style lang="less">
 @import '../style/mixins';
-.cb-grid-border-right {
-  .divider(right);
-}
-.cb-grid-border-bottom {
-  .divider(bottom);
-}
-.cb-grid-border-top {
-  .divider(top);
+.cb-grid {
+  &--border-right {
+    .divider(right);
+  }
+  &--border-bottom {
+    .divider(bottom);
+  }
+  &--border-top {
+    .divider(top);
+  }
 }
 </style>

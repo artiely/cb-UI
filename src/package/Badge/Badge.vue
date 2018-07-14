@@ -81,20 +81,19 @@ export default {
     badgeCls() {
       return {
         [`${prefixCls}`]: true,
-        [`${prefixCls}-not-a-wrapper`]: !this.children,
-        [`${prefixCls}-corner-wrapper`]: this.corner,
-        [`${prefixCls}corner-wrapper-large`]: this.corner && this.large
+        [`${prefixCls}--not-a-wrapper`]: !this.children,
+        [`${prefixCls}--corner-wrapper`]: this.corner
       }
     },
     supCls() {
       return {
-        [`${prefixCls}-dot`]: this.badgeClass ? null : this.dot,
-        [`${prefixCls}-text`]: this.badgeClass
+        [`${prefixCls}--dot`]: this.badgeClass ? null : this.dot,
+        [`${prefixCls}--text`]: this.badgeClass
           ? null
           : !this.dot && !this.corner,
-        [`${prefixCls}-corner`]: this.badgeClass ? null : this.corner,
-        [`${prefixCls}-flat`]: this.badgeClass ? null : this.flat,
-        [`${prefixCls}-outline`]: this.badgeClass ? null : this.outline,
+        [`${prefixCls}--corner`]: this.badgeClass ? null : this.corner,
+        [`${prefixCls}--flat`]: this.badgeClass ? null : this.flat,
+        [`${prefixCls}--outline`]: this.badgeClass ? null : this.outline,
         [this.badgeClass]: true
       }
     }
@@ -111,7 +110,7 @@ export default {
   line-height: 1;
   vertical-align: middle;
   white-space: nowrap;
-  &-text {
+  &--text {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -133,22 +132,22 @@ export default {
     font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
       'Microsoft YaHei', '\5FAE\8F6F\96C5\9ED1', SimSun, sans-serif;
   }
-  &-flat {
+  &--flat {
     border-radius: 2px;
   }
-  &-outline {
+  &--outline {
     background-color: transparent;
     border: 1px solid #ff5b05;
     color: #ff5b05;
   }
-  &-text a {
+  &--text a {
     color: #fff;
   }
-  &-text p {
+  &--text p {
     margin: 0;
     padding: 0;
   }
-  &-dot {
+  &--dot {
     position: absolute;
     transform: translateX(-50%);
     transform-origin: 0 center;
@@ -159,14 +158,14 @@ export default {
     background: #ff5b05;
     z-index: 10;
   }
-  &-not-a-wrapper &-text,
-  &-not-a-wrapper &-dot {
+  &--not-a-wrapper &--text,
+  &--not-a-wrapper &--dot {
     top: auto;
     display: block;
     position: relative;
     transform: translateX(0);
   }
-  &-corner {
+  &--corner {
     width: 80px;
     padding: 8px;
     position: absolute;
@@ -179,8 +178,7 @@ export default {
     text-align: center;
     font-size: 15px;
   }
-
-  &-corner-wrapper {
+  &--corner-wrapper {
     overflow: hidden;
     width: 100%;
   }
