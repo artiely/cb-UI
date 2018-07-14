@@ -13,14 +13,16 @@
             <span v-if="required" :class="`${prefixCls}-required`"> *</span>
           </div>
         </slot>
-        <div :class="`${prefixCls}-input-box`" v-if="input">
-          <input :type="type" :class="`${prefixCls}-input`" v-bind="$attrs" :value="value" @input="handleInput" placeholder="请输入">
+        <div :class="`${prefixCls}-input-box`" v-if="this.value!==undefined&&this.input">
+          <input :type="type" :class="`${prefixCls}-input`" v-bind="$attrs" :placeholder="placeholder" :value="value" @input="handleInput" />
         </div>
-        <div :class="`${prefixCls}-text` " v-else>
-          <div :class="wrapCls">
-            {{text}}
+          <div :class="`${prefixCls}-text` " v-else>
+            <slot name="text" >
+            <div :class="wrapCls">
+              {{finalText}}
+            </div>
+            </slot>
           </div>
-        </div>
         <div :class="`${prefixCls}-link`" v-if="link||clear">
           <cb-icon name="icon-enter" v-if="link"></cb-icon>
           <cb-icon name="icon-delete_fill" v-if="clear" class="tap-area" color="#ddd" @click.native="clearInput"></cb-icon>
@@ -34,6 +36,7 @@
 const prefixCls = 'cb-cell'
 export default {
   name: 'Cell',
+  inheritAttrs: false,
   props: {
     title: String,
     leftIcon: String,
@@ -62,6 +65,10 @@ export default {
       type: Boolean,
       default: false
     },
+    placeholder: {
+      type: String,
+      default: '请输入'
+    },
     type: {
       type: String,
       default: 'text'
@@ -80,7 +87,17 @@ export default {
       return {
         [`${prefixCls}-no-ellipsis`]: this.wrap,
         [`${prefixCls}-ellipsis`]: !this.wrap,
-        [`${prefixCls}-text-align`]: true
+        [`${prefixCls}-text-align`]: this.wrap
+      }
+    },
+    finalText() {
+      // input = false 但是有value
+      if (!this.input) {
+        if (this.value) {
+          return this.value
+        } else {
+          return this.text
+        }
       }
     }
   },
@@ -117,6 +134,8 @@ export default {
   },
   mounted() {
     this.hasIcon = this.$slots.leftIcon !== undefined
+    console.log('value', this.value)
+    // console.log('input', this.input)
   }
 }
 </script>
@@ -127,7 +146,6 @@ export default {
   padding-left: 15px;
   display: flex;
   position: relative;
-  margin-bottom: -1px;
   .cb-cell-required {
     color: red;
     position: absolute;
@@ -167,6 +185,7 @@ export default {
       text-overflow: ellipsis;
       white-space: nowrap;
       line-height: 50px;
+      text-align: right;
     }
     .cb-cell-no-ellipsis {
       padding-top: 15px;

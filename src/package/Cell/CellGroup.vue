@@ -18,9 +18,12 @@ export default {
 <style lang="less">
 @import '../style/mixins';
 .cb-cell-group {
+  position: relative;
+  width: 100%;
   margin-bottom: 20px;
   background: #fff;
   overflow: hidden;
+  margin-bottom: -1px;
 }
 .cb-cell-group-border {
   .thin-border-tb();

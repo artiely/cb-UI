@@ -49,6 +49,12 @@
     <br>
     <cb-avatar name="谭杰" background="#333" color="#fff" :size="100"></cb-avatar>
     <cb-avatar name="谭杰" :src="require('./assets/logo.png')" :size="50"></cb-avatar>
+    <br>
+    设置 verified
+    <br>
+    <cb-avatar name="谭杰" background="#333" color="#fff" :size="50" >
+      <cb-icon name="icon-success_fill" slot="verified" color="red" style="position:absolute;right:0;bottom:0;"></cb-icon>
+    </cb-avatar>
     <br> 网格组件(默认列3)
     <cb-grid :items="[1,2,3,4,5]">
       <template slot-scope="scope">
@@ -96,16 +102,85 @@
       <cb-cell title="我是川普我是川普" text="我是文本内容我是文本内容我是文本内容本内容"></cb-cell>
       <cb-cell title="我是川普我是川普" text="我是文本内容我是文本内容我是文本内容本内容" wrap></cb-cell>
       <cb-cell title="请选择" text="我是文本内容我是文本内容我是文本内容本内容" link></cb-cell>
-      <cb-cell >
+      改变input属性动态切换输入和只读状态
+      <button @click="switchType=!switchType">switchType</button>
+      {{text}}
+      <cb-cell title="我是标题" v-model="text" :input="switchType"></cb-cell>
+      <cb-cell title="我是标题" v-model="text" input placeholder="请输入"></cb-cell>
+
+      <cb-cell>
         <div>
           <cb-icon name="icon-coupons"></cb-icon>
         </div>
       </cb-cell>
     </cb-cell-group>
     <div class="test test5"></div>
-    <cb-badge>123</cb-badge>
-    <cb-badge small>123</cb-badge>
-    <cb-badge large>123</cb-badge>
+    <br>
+    徽章溢出状态
+    <br>
+    <cb-badge :text="num"></cb-badge>
+    <cb-badge :text="num" :dot="num>99"></cb-badge>
+    <br>
+    徽章的绶带形式
+    <br>
+    <cb-cell-group>
+      <cb-badge text="促销" corner>
+        <div>
+          <cb-cell title="清仓" text="跳楼"></cb-cell>
+        </div>
+      </cb-badge>
+      <cb-badge text="促销" corner large>
+        <cb-cell title="清仓" text="跳楼"></cb-cell>
+      </cb-badge>
+    </cb-cell-group>
+    徽章结合cell的使用
+    <cb-cell-group>
+      <cb-cell title="我是标题" link>
+        <div slot="text" >
+          <cb-badge text="999" />
+        </div>
+      </cb-cell>
+      <cb-cell title="我是标题" link>
+        <div slot="text">
+          <cb-badge text="促销" />
+        </div>
+      </cb-cell>
+    </cb-cell-group>
+    <br>
+    徽章结合头像自定义style
+    <br>
+    <cb-badge text="10" :styles="{marginLeft:'-8px',marginTop:'8px'}">
+      <cb-avatar name="谭杰" background="#333" color="#fff" :size="50"></cb-avatar>
+    </cb-badge>
+    <br>
+    徽章自定义尺寸
+    <br>
+    <cb-badge text="10" size="30"/>
+    <cb-badge text="10" size="20"/>
+    <cb-badge text="10" size="10"/>
+    <br>
+    是否去圆角
+    <br>
+    <cb-badge text="你好" flat />
+    <br>
+    是否去填充色
+    <br>
+    <cb-badge text="你好" flat outline />
+    <cb-badge text="你好" size="25" flat outline />
+    <br>
+    自定义class属性
+    <br>
+    <cb-badge text="你好" badge-class="badge-class" />
+    <br>
+    自定义颜色属性
+    <br>
+    <cb-badge text="你好" color="blue" />
+    <cb-badge text="你好" color="#000" />
+    <cb-badge text="你好" color="rgb(200,200,200)" />
+    <cb-badge text="你好" color="blue" outline />
+    <cb-badge text="你好" color="#000" outline  flat/>
+    <br>
+
   </div>
 </template>
 
@@ -114,7 +189,10 @@ export default {
   name: 'App',
   data() {
     return {
-      valuex: ''
+      num: 100,
+      valuex: '',
+      text: '',
+      switchType: false
     }
   },
   methods: {
@@ -127,13 +205,19 @@ export default {
 
 <style lang="less">
 @import './package/style/mixins';
-*{
-  font-family: "PingFang SC", "Hiragino Sans GB",-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-             "Helvetica Neue", Helvetica, "Microsoft YaHei",
-             SimSun, sans-serif;
+* {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica,
+    'Microsoft YaHei', SimSun, sans-serif;
 }
 #app {
   background: #eee;
+}
+.badge-class{
+  border-radius: 0;
+  border: 1px solid yellow;
+  background: plum;
+  color: red;
 }
 .test {
   height: 40px;

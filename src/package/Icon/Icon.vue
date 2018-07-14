@@ -1,6 +1,7 @@
 <template>
   <span class="cb-icon--wrapper">
-    <i class="icon iconfont" :class="name" :style="'font-size:'+size+'px;color:'+color"></i><slot></slot>
+    <i class="icon iconfont" :class="name" :style="'font-size:'+size+'px;color:'+color"></i>
+    <slot></slot>
   </span>
 </template>
 <script>
@@ -12,7 +13,7 @@ export default {
       default: ''
     },
     size: {
-      type: Number
+      type: [Number, String]
     },
     color: {
       type: String
@@ -22,7 +23,6 @@ export default {
 </script>
 <style lang="less">
 .cb-icon--wrapper {
-  height: 100%;
   display: inline-block;
   font-size: 16px;
   .icon {
