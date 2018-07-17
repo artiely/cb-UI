@@ -9,7 +9,7 @@
     <div :class="{[`${prefixCls}--no-height`]:wrap,[`${prefixCls}--divider`]:true}">
       <slot>
         <slot name="title">
-          <div :class="`${prefixCls}--title`">{{title}}
+          <div :class="`${prefixCls}--title`" v-if="title">{{title}}
             <span v-if="required" :class="`${prefixCls}--required`"> *</span>
           </div>
         </slot>
@@ -38,7 +38,7 @@ export default {
   name: 'Cell',
   inheritAttrs: false,
   props: {
-    title: String,
+    title: [String, Number],
     leftIcon: String,
     input: {
       type: Boolean,

@@ -61,7 +61,7 @@ export default {
     },
     contentStyle() {
       return {
-        borderRadius: this.flat ? '2px' : '50%',
+        borderRadius: this.flat ? '0' : '50%',
         backgroundColor: this.background
       }
     }

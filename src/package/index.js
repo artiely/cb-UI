@@ -4,6 +4,9 @@ import Avatar from './Avatar'
 import Box from './Box'
 import Grid from './Grid'
 import Badge from './Badge'
+import Scroll from './Scroll'
+import Loading from './Loading'
+import Radio from './Radio'
 import {
   CellGroup,
   Cell
@@ -19,6 +22,12 @@ export default {
   Box,
   CellGroup,
   Cell,
+  Scroll,
+  Loading,
+  Radio,
+  'cb-radio': Radio,
+  'cb-loading': Loading,
+  'cb-scroll': Scroll,
   'cb-cell-group': CellGroup,
   'cb-cell': Cell,
   'cb-badge': Badge,
