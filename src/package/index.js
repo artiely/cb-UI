@@ -6,11 +6,8 @@ import Grid from './Grid'
 import Badge from './Badge'
 import Scroll from './Scroll'
 import Loading from './Loading'
-import Radio from './Radio'
-import {
-  CellGroup,
-  Cell
-} from './Cell'
+import { Radio, RadioGroup } from './Radio'
+import { CellGroup, Cell } from './Cell'
 
 import './style/index.less'
 export default {
@@ -25,7 +22,9 @@ export default {
   Scroll,
   Loading,
   Radio,
+  RadioGroup,
   'cb-radio': Radio,
+  'cb-radio-group': RadioGroup,
   'cb-loading': Loading,
   'cb-scroll': Scroll,
   'cb-cell-group': CellGroup,

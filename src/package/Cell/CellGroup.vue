@@ -1,5 +1,5 @@
 <template>
-  <div class="cb-cell-group" :class="{'cb-cell-group-border':border}">
+  <div class="cb-cell-group" :class="{'cb-cell-group--border':border}">
     <slot></slot>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
   overflow: hidden;
   margin-bottom: -1px;
 }
-.cb-cell-group-border {
+.cb-cell-group--border {
   .thin-border-tb();
 }
 </style>

@@ -12,6 +12,7 @@ export default {
       while (parent) {
         if (parent.$options.name === name) {
           this.parent = parent
+          // return parent
           break
         }
         parent = parent.$parent

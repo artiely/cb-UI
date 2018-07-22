@@ -1,2 +1,3 @@
 import Radio from './Radio'
-export default Radio
+import RadioGroup from './RadioGroup'
+export { Radio, RadioGroup }

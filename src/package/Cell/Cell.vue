@@ -1,8 +1,8 @@
 <template>
   <div :class="`${prefixCls}`">
-    <div :class="`${prefixCls}--left-icon`" v-if="hasIcon||leftIcon">
+    <div :class="`${prefixCls}--left-icon`" v-if="hasIcon">
       <slot name="left-icon">
-        <cb-icon :name="leftIcon?'icon-questions':''">
+        <cb-icon :name="leftIcon">
         </cb-icon>
       </slot>
     </div>
@@ -33,9 +33,11 @@
 </template>
 
 <script>
+import findParent from '../utils/minxins/findParent'
 const prefixCls = 'cb-cell'
 export default {
   name: 'Cell',
+  mixins: [findParent],
   inheritAttrs: false,
   props: {
     title: [String, Number],
@@ -79,6 +81,7 @@ export default {
     return {
       prefixCls: prefixCls,
       hasIcon: false
+      // radioParent: null
     }
   },
   computed: {
@@ -90,6 +93,10 @@ export default {
         [`${prefixCls}--text-align`]: this.wrap
       }
     },
+    // leftIconName() {
+    //   // console.log('this.parent', this.parent)
+    //   return this.leftIcon
+    // },
     finalText() {
       // input = false 但是有value
       if (!this.input) {
@@ -133,7 +140,11 @@ export default {
     }
   },
   mounted() {
-    this.hasIcon = this.$slots.leftIcon !== undefined
+    // this.hasIcon = this.$slots.leftIcon !== undefined || this.radioParent !== null
+    this.hasIcon = this.$slots.leftIcon !== undefined || this.leftIcon
+  },
+  created() {
+    // this.radioParent = this.findParent('Radio')
   }
 }
 </script>
